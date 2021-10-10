@@ -7,7 +7,7 @@ use CodeIgniter\RESTful\ResourceController;
 class EmployeeController extends ResourceController
 {
     //POST
-    public function createEmpployee()
+    public function createEmployee()
     {
     }
     //GET

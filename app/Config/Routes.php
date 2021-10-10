@@ -33,6 +33,17 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+//API Routes
+$routes->group('api', function ($routes) {
+    //http://localhost:8080/api/create-employee
+    $routes->post('create-employee', 'EmployeeController::createEmployee');
+    $routes->get('list-employees', 'EmployeeController::listEmployees');
+    //http://localhost:8080/api/single-employee/34
+    $routes->get('single-employee/(:num)', 'EmployeeController::singleEmployee/$1');
+    $routes->put('update-employee/(:num)', 'EmployeeController::updateEmployee/$1');
+    $routes->delete('delete-employee/(:num)', 'EmployeeController::deleteEmployee/$1');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
