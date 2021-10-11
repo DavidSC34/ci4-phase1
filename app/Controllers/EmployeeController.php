@@ -102,10 +102,50 @@ class EmployeeController extends ResourceController
     //GET
     public function listEmployees()
     {
+        $emp_object = new EmployeeModel();
+        $response = [
+            'status' => 200,
+            'message' => 'Employees list',
+            'error' => false,
+            'data' => $emp_object->findAll()
+        ];
+        return $this->respondCreated($response);
     }
     //GET
-    public function singleEmployee($emp_id)
+    public function singleEmployee($emp_id = 0)
     {
+        $emp_object = new EmployeeModel();
+        $emp_data = $emp_object->find($emp_id);
+
+        if (is_numeric($emp_id) && $emp_id >= 0) {
+            if (!empty($emp_data)) {
+                //employee data
+                $response = [
+                    'status' => 200,
+                    'message' => 'single Employee detail',
+                    'error' => false,
+                    'data' =>  $emp_data
+                ];
+            } else {
+                //no employee found
+                $response = [
+                    'status' => 404,
+                    'message' => 'No Employee found',
+                    'error' => true,
+                    'data' =>  []
+                ];
+            }
+        } else {
+            $response = [
+                'status' => 500,
+                'message' => 'Employee id must be numeric and no negative',
+                'error' => true,
+                'data' =>  []
+            ];
+        }
+
+
+        return $this->respondCreated($response);
     }
     //POST -> PUT
     public function updateEmployee($emp_id)
