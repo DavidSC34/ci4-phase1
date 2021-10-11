@@ -233,5 +233,28 @@ class EmployeeController extends ResourceController
     //DELETE
     public function deleteEmployee($emp_id)
     {
+        $emp_object = new EmployeeModel();
+        $emp_data = $emp_object->find($emp_id);
+
+        if (!empty($emp_data)) {
+            //employe exits
+            $emp_object->delete($emp_data);
+            //employee does no exist
+            $response = [
+                'status' => 200,
+                'message' => 'employee has been deleted',
+                'error' => false,
+                'data' =>  []
+            ];
+        } else {
+            //employee does no exist
+            $response = [
+                'status' => 404,
+                'message' => 'No Employee found',
+                'error' => true,
+                'data' =>  []
+            ];
+        }
+        return $this->respondCreated($response);
     }
 }
