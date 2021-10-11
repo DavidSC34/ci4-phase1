@@ -35,11 +35,11 @@ class EmployeesMigration extends Migration
             ]
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('employess');
+        $this->forge->createTable('employees');
     }
 
     public function down()
     {
-        $this->forge->dropTable('employess');
+        $this->forge->dropTable('employees');
     }
 }
